@@ -17,7 +17,7 @@ import {
 } from "../utils";
 
 const gameReducer = (state = defaultState(), action) => {
-  const { shape, grid, x, y, rotation, nextShape, score, isRunning } = state;
+  const { shape, grid, x, y, rotation, nextShape, score, isRunning, speed } = state;
 
   switch (action.type) {
     case ROTATE:
@@ -68,13 +68,14 @@ const gameReducer = (state = defaultState(), action) => {
       const newState = defaultState();
       newState.grid = newGrid;
       newState.shape = nextShape;
-      newState.score = score;
       newState.isRunning = isRunning;
-
-      // TODO: Check and Set level
-      // Score increases decrease interval
-      newState.score = score + checkRows(newGrid);
-
+      let tempScore = score + checkRows(newGrid);
+      let tempLv = Math.floor(tempScore / 1000) + 1 
+      newState.score = tempScore
+      newState.level = tempLv
+      newState.speed =  (1000 - tempLv * 100)<50?50: 1000 - tempLv * 100
+      console.log(speed)
+      console.log(state)
       return newState;
 
     case RESUME:
