@@ -2,20 +2,20 @@
   --bg-color: rgba(150, 150, 150, 1);
 
   /* Border Colors are all transparent colors. These will tint or shade the background color of the square. */
-  --border-left-color: rgba(255, 255, 255, 0.20);
+  --border-left-color: rgba(255, 255, 255, 0.2);
   --border-top-color: rgba(255, 255, 255, 0.33);
   --border-right-color: rgba(0, 0, 0, 0.15);
   --border-bottom-color: rgba(0, 0, 0, 0.5);
 
   /* Square Colors:  background colors for the squares.*/
-  --color-0: #eaeaea;
-  --color-1: #ff6600;
-  --color-2: #eec900;
-  --color-3: #0000ff;
-  --color-4: #cc00ff;
-  --color-5: #00ff00;
-  --color-6: #66ccff;
-  --color-7: #ff0000;
+  --color-0: #eee;
+  --color-1: #046df5;
+  --color-2: #297226;
+  --color-3: #ff7601;
+  --color-4: #2600ff;
+  --color-5: #f50b2a;
+  --color-6: #00da00;
+  --color-7: #ffdd1b;
 
   /* Button Colors */
   --button-color-t: rgba(200, 200, 200, 1);
@@ -27,25 +27,25 @@
   --tile-size: 20px for example will set size of the grid squares. */
   --cols: 10;
   --rows: 18;
-  --tile-size: 20px;
+  --tile-size: 35px;
   --border-width: 3px;
-} 
+}
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ddd;
+  color: #333;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-
 
 /* Colors */
 .color-0 {
@@ -84,7 +84,7 @@ code {
 .App {
   --col-side: calc(var(--tile-size) * 4);
   --col-center: calc(var(--tile-size) * 10);
-  --grid-height: calc(var(--tile-size) * 24);
+  --grid-height: calc(var(--tile-size) * 18);
 
   width: calc(var(--tile-size) * (4 + 1 + 10 + 1 + 4));
   margin: auto;
@@ -94,13 +94,15 @@ code {
   /* Defines three columns of `--col-side`, `--col-center`, and `--col-side` widths. */
   grid-template-columns: var(--col-side) var(--col-center) var(--col-side);
   /* Defines three rows of `100px`, `--grid-height`, and 100px. */
-  grid-template-rows: 100px var(--grid-height) 100px;
+  grid-template-rows: 60px var(--grid-height) 100px;
 
-/* This defines the areas on the grid with names: 'h', 'l', 'c', 'r',
+  /* This defines the areas on the grid with names: 'h', 'l', 'c', 'r',
 and 'b'. The '.' represents an empty cell on the grid. */
-  grid-template-areas: "h h h"
-                       "l c r"
-                       ". b .";
+  grid-template-areas:
+    ". h ."
+    "l c r"
+    ". b .";
+  margin-top: 10px;
 }
 
 /* Grid Square */
@@ -113,7 +115,7 @@ and 'b'. The '.' represents an empty cell on the grid. */
   border-top-color: var(--border-top-color);
   border-right-color: var(--border-right-color);
   border-bottom-color: var(--border-bottom-color); */
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 /* Grid Board */
@@ -125,7 +127,10 @@ and 'b'. The '.' represents an empty cell on the grid. */
   align-self: flex-start;
   grid-area: c; /* Assign to grid area c */
   grid-gap: 1px; /* Add a gap! */
-
+  width: max-content;
+  box-shadow: 0 0 10px darkred;
+  background-color: darkred;
+  border-radius: 4px;
 }
 
 /* Next Block */
@@ -134,7 +139,11 @@ and 'b'. The '.' represents an empty cell on the grid. */
   grid-template-columns: repeat(4, var(--tile-size));
   align-self: flex-start;
   grid-area: l; /* Grid area l left column */
-
+  width: max-content;
+  box-shadow: 0 0 10px darkred;
+  background-color: darkred;
+  border-radius: 4px;
+  gap: 1px;
 }
 
 /* Score Board */
@@ -143,11 +152,23 @@ and 'b'. The '.' represents an empty cell on the grid. */
   padding: 1em;
   background-color: var(--color-0);
   border: none;
+
+  height: calc(var(--tile-size) * 1.25);
+  font-weight: 600;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 70%);
+  transition: 0.4s;
+  margin-top: 5px;
+  cursor: pointer;
   /* border-width: 5px; */
   /* border-top-color: var(--button-color-t);
   border-left-color: var(--button-color-l);
   border-right-color: var(--button-color-r);
   border-bottom-color: var(--button-color-b); */
+}
+
+.score-board-button:hover {
+  box-shadow: 0 4px 15px rgb(0 0 0 / 80%);
 }
 
 /* App-header */
@@ -167,20 +188,32 @@ and 'b'. The '.' represents an empty cell on the grid. */
   grid-area: b;
   display: flex;
   flex-direction: row;
+  gap: 3px;
 }
 
 /* Control Button */
 .control-button {
   --size: calc(var(--tile-size) * 2.5);
-  width: var(--size);
-  height: var(--size);
+  width: calc(var(--tile-size) * 2.5);
+  height: calc(var(--tile-size) * 1.25);
   text-align: center;
+  font-weight: 600;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  transition: 0.4s;
   display: block;
-  border-width: 5px;
-  border-top-color: var(--button-color-t);
+  /* border-width: 5px; */
+  border: none;
+  /* border-top-color: var(--button-color-t);
   border-left-color: var(--button-color-l);
   border-right-color: var(--button-color-r);
-  border-bottom-color: var(--button-color-b);
+  border-bottom-color: var(--button-color-b); */
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.control-button:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
 }
 
 /* Message Popup Styles */
