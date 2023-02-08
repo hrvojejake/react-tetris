@@ -16,7 +16,6 @@ export default function GridBoard(props) {
 
   const block = shapes[shape][rotation]
   const blockColor = shape
-  console.log(speed, 'time')
   const update = (time) => {
     requestRef.current = requestAnimationFrame(update)
     if (!isRunning) {
@@ -28,7 +27,6 @@ export default function GridBoard(props) {
     const deltaTime = time - lastUpdateTimeRef.current
     progressTimeRef.current += deltaTime
     if (progressTimeRef.current > speed) {
-      console.log(speed, 'ref')
         dispatch(moveDown())
         progressTimeRef.current = 0
     }

@@ -74,8 +74,6 @@ const gameReducer = (state = defaultState(), action) => {
       newState.score = tempScore
       newState.level = tempLv
       newState.speed =  (1000 - tempLv * 100)<50?50: 1000 - tempLv * 100
-      console.log(speed)
-      console.log(state)
       return newState;
 
     case RESUME:
