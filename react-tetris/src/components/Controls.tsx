@@ -9,13 +9,14 @@ import {
   resume,
   restart
 } from "../actions";
+import { State } from "../models";
 
-export default function Controls(props) {
+export default function Controls() {
   const dispatch = useDispatch();
-  const isRunning = useSelector((state) => state.game.isRunning);
-  const gameOver = useSelector((state) => state.game.gameOver);
+  const isRunning = useSelector((state: State) => state.game.isRunning);
+  const gameOver = useSelector((state: State) => state.game.gameOver);
 
-  const keyboardPlay = (e) => {
+  const keyboardPlay = (e: KeyboardEvent) => {
     if (e.keyCode === 38) {
       /* up */
       if (!isRunning || gameOver) {

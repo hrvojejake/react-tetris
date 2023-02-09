@@ -1,4 +1,4 @@
-export const random = (min, max) => {
+export const random = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
@@ -6,7 +6,7 @@ export const random = (min, max) => {
 export const gridDefault = () => {
   const rows = 18;
   const cols = 10;
-  const array = [];
+  const array: number[][] = [];
 
   for (let row = 0; row < rows; row++) {
     array.push([]);
@@ -192,11 +192,17 @@ export const randomShape = () => {
 
 // Returns the next rotation for a shape
 // rotation can't exceed the last index of the the rotations for the given shape.
-export const nextRotation = (shape, rotation) => {
+export const nextRotation = (shape: number, rotation: number) => {
   return (rotation + 1) % shapes[shape].length;
 };
 
-export const canMoveTo = (shape, grid, x, y, rotation) => {
+export const canMoveTo = (
+  shape: number,
+  grid: number[][],
+  x: number,
+  y: number,
+  rotation: number
+) => {
   const currentShape = shapes[shape][rotation];
   // Get the width and height of the grid
   const gridWidth = grid[0].length - 1;
@@ -229,7 +235,13 @@ export const canMoveTo = (shape, grid, x, y, rotation) => {
 };
 
 // Adds current shape to grid
-export const addBlockToGrid = (shape, grid, x, y, rotation) => {
+export const addBlockToGrid = (
+  shape: number,
+  grid: number[][],
+  x: number,
+  y: number,
+  rotation: number
+) => {
   // At this point the game is not over
   let blockOffGrid = false;
   const block = shapes[shape][rotation];
@@ -253,7 +265,7 @@ export const addBlockToGrid = (shape, grid, x, y, rotation) => {
 };
 
 // Checks for completed rows and scores points
-export const checkRows = (grid) => {
+export const checkRows = (grid: number[][]) => {
   // Points increase for each row completed
   // i.e. 40 points for completing one row, 100 points for two rows
   const points = [0, 40, 100, 300, 1200];

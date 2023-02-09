@@ -7,17 +7,21 @@ import {
   RESUME,
   RESTART,
   GAME_OVER
-} from "../actions";
+} from "../actions/index";
 import {
   defaultState,
   nextRotation,
   canMoveTo,
   addBlockToGrid,
   checkRows
-} from "../utils";
+} from "../utils/index";
 
-const gameReducer = (state = defaultState(), action) => {
-  const { shape, grid, x, y, rotation, nextShape, score, isRunning, speed } = state;
+type Action = {
+  type: string;
+};
+
+const gameReducer = (state = defaultState(), action: Action) => {
+  const { shape, grid, x, y, rotation, nextShape, score, isRunning } = state;
 
   switch (action.type) {
     case ROTATE:
@@ -70,10 +74,10 @@ const gameReducer = (state = defaultState(), action) => {
       newState.shape = nextShape;
       newState.isRunning = isRunning;
       let tempScore = score + checkRows(newGrid);
-      let tempLv = Math.floor(tempScore / 1000) + 1 
-      newState.score = tempScore
-      newState.level = tempLv
-      newState.speed =  (1000 - tempLv * 100)<50?50: 1000 - tempLv * 100
+      let tempLv = Math.floor(tempScore / 1000) + 1;
+      newState.score = tempScore;
+      newState.level = tempLv;
+      newState.speed = 1000 - tempLv * 100 < 50 ? 50 : 1000 - tempLv * 100;
       return newState;
 
     case RESUME:
